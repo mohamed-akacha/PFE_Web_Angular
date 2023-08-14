@@ -1,0 +1,114 @@
+<div class="card-container">
+  <div class="overlay" *ngIf="updateInProgress"></div>
+  <div class="app-page-title">
+    <div class="page-title-wrapper">
+      <div class="page-title-heading">
+        <div class="page-title-icon">
+          <i class="fas fa-check-double icon-gradient bg-amy-crisp">
+          </i>
+        </div>
+        <div> Subcontractors Management
+          <div class="page-title-subheading">
+            Perform CRUD operations (Create, Read, Update, Delete) for efficient subcontractor management. Simplify the process of adding, viewing, modifying, and removing subcontractor information, ensuring smooth project execution. </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-table">
+    <div class="card-header">
+      <h3 class="card-title">Subcontractors list</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onUserCreateBtnClick()">New subcontractor</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="myDataTableWrapper" data-user-type="user">
+        <table id="SubcontractorsTable" class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th>Name of the contact</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th> Business name</th>
+            <th width="50"></th>
+            <th width="50"></th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-confirmation" [hidden]="!editFormShow">
+    <form (ngSubmit)="confirmUpdateAction()">
+      <div class="card-header">
+        <h3 class="card-title">Subcontractor update</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="nomContact">Name of the contact</label>
+          <input type="text" id="nomContact" [(ngModel)]="nomContact" name="nomContact">
+        </div>
+        <div>
+          <label for="telContact">Phone</label>
+          <input type="text" id="telContact" [(ngModel)]="telContact" name="telContact">
+        </div>
+        <div>
+          <label for="emailContact">Email</label>
+          <input type="text" id="emailContact" [(ngModel)]="emailContact" name="emailContact">
+        </div>
+        <div>
+          <label for="raisonSociale">Business name</label>
+          <input type="text" id="raisonSociale" [(ngModel)]="raisonSociale" name="raisonSociale">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit">Update</button>
+        <button class="btn-cancel" (click)="cancelUpdateAction()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card card-confirmation" [hidden]="!deleteConfirmationFormShow">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-trash-alt"></i> Confirmation</h3>
+    </div>
+    <div class="card-body">
+      <p class="confirmation-message">{{ deleteConfirmationMessage }}</p>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmDeleteAction()">Confirm</button>
+        <button class="btn-cancel" (click)="cancelDeleteAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-confirmation" [hidden]="!createFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-user-plus"></i> New subcontractor</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="nomContact">Name of the contact</label>
+          <input type="text" id="nomContact" [(ngModel)]="nomContact" name="nomContact">
+        </div>
+        <div>
+          <label for="telContact">Phone</label>
+          <input type="text" id="telContact" [(ngModel)]="telContact" name="telContact">
+        </div>
+        <div>
+          <label for="emailContact">Email</label>
+          <input type="text" id="emailContact" [(ngModel)]="emailContact" name="emailContact">
+        </div>
+        <div>
+          <label for="raisonSociale">Business name</label>
+          <input type="text"  [(ngModel)]="raisonSociale" name="raisonSociale">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

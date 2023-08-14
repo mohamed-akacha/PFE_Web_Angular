@@ -1,0 +1,128 @@
+
+<div class="app-page-title">
+  <div class="page-title-wrapper">
+    <div class="page-title-heading">
+      <div class="page-title-icon">
+        <i class="fas fa-check-double icon-gradient bg-amy-crisp">
+        </i>
+      </div>
+      <div> Evaluation criterias Management
+        <div class="page-title-subheading">
+          The Evaluation Criteria Management module is an essential component of the hospital hygiene app. It simplifies the management of evaluation criteria, ensuring consistency and accuracy in assessing hygiene standards.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="overlay" *ngIf="updateInProgress"></div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link cursor-pointer" [class.active]="activeTab === 'interne'" (click)="changeTab('interne')">Internal</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link cursor-pointer" [class.active]="activeTab === 'externe'" (click)="changeTab('externe')">External</a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div id="interne" [hidden]="activeTab !== 'interne'">
+    <!-- Content for the Interne tab -->
+    <div class="card card-table">
+      <div class="card-header">
+        <h3 class="card-title"></h3>
+        <div class="header-button">
+          <button class="btn btn-outline-dark" id="tt" (click)="onUserCreateBtnClick('interne')">New criteria</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="myDataTableWrapper" data-user-type="interne">
+          <table id="internesTable" class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+              <th>Description</th>
+              <th width="50"></th>
+              <th width="50"></th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="externe" [hidden]="activeTab !== 'externe'">
+    <!-- Content for the Externe tab -->
+    <div class="card card-table">
+      <div class="card-header">
+        <h3 class="card-title"></h3>
+        <div class="header-button">
+          <button class="btn btn-outline-dark" (click)="onUserCreateBtnClick('externe')">New criteria</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="myDataTableWrapper2" data-user-type="externe">
+          <table id="externesTable" class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+              <th>Description</th>
+              <th width="50"></th>
+              <th width="50"></th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="card  card-confirmation"  [hidden]="!editFormShow">
+  <form>
+    <div class="card-header">
+      <h3 class="card-title">Criteria update</h3>
+    </div>
+    <div class="card-body">
+      <div>
+        <label for="fullname">Nom</label>
+        <input type="text" id="fullname" [(ngModel)]="criteria" name="criteria">
+      </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirm" (click)="confirmUpdateAction()">Update</button>
+      <button class="btn-cancel" (click)="cancelUpdateAction()">Cancel</button>
+    </div>
+
+  </form>
+</div>
+<div class="card card-confirmation" [hidden]="!deleteConfirmationFormShow">
+  <div class="card-header">
+    <h3 class="card-title"><i class="fas fa-trash-alt"></i> Confirmation</h3>
+  </div>
+  <div class="card-body">
+    <p class="confirmation-message">{{ deleteConfirmationMessage }}</p>
+    <div class="modal-footer">
+      <button class="btn-confirm" (click)="confirmDeleteAction()">Confirm</button>
+      <button class="btn-cancel" (click)="cancelDeleteAction()">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="card  card-confirmation"  [hidden]="!createFormShow">
+  <form>
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-user-plus"></i> New Criteria</h3>
+    </div>
+    <div class="card-body">
+      <div>
+        <label for="criteria">Description</label>
+        <input type="text" id="criteria" [(ngModel)]="criteria" name="criteria">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirm" (click)="confirmCreateAction()">Create</button>
+      <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+    </div>
+
+  </form>
+</div>
+

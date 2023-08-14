@@ -1,0 +1,160 @@
+<div class="card-container">
+  <div class="overlay" *ngIf="updateInProgress"></div>
+  <div class="app-page-title">
+    <div class="page-title-wrapper">
+      <div class="page-title-heading">
+        <div class="page-title-icon">
+          <i class="fas fa-check-double icon-gradient bg-amy-crisp">
+          </i>
+        </div>
+        <div> Contract Management
+          <div class="page-title-subheading">
+            Efficiently oversee and administer contracts, ensuring compliance and optimizing relationships with subcontractors for hygiene-related services. </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-table">
+    <div class="card-header">
+      <h3 class="card-title">Contract list</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onCreateBtnClick()">New contrct</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="myDataTableWrapper" data-user-type="user">
+        <table id="ZonesTable" class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th>Institution</th>
+            <th>Region</th>
+            <th>Subcontractor</th>
+            <th>Contact</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th width="50"></th>
+            <th width="50"></th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!editFormShow">
+    <form (ngSubmit)="confirmUpdateAction()">
+      <div class="card-header">
+        <h3 class="card-title">Contract pdate</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="institution1">Institution</label>
+          <select id="institution1" [(ngModel)]="selectedInstitution" name="selectedInstitution">
+            <option *ngFor="let institution of institutions" [value]="institution.id">{{ institution["nom"] }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="ville1">Region</label>
+          <input type="text" id="ville1" [(ngModel)]="zoneName" name="zoneName">
+        </div>
+        <div>
+          <label for="sousTraitant1">Subcontractor</label>
+          <select id="sousTraitant1" [(ngModel)]="selectedSubcontractor" name="selectedSubcontractor">
+            <option *ngFor="let subcontractor of subcontractors" [value]="subcontractor.id">{{ subcontractor["raison_sociale }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="contact1">Contact</label>
+          <input type="text" id="contact1" [(ngModel)]="subContractorName" name="subContractorName">
+        </div>
+        <div>
+          <label for="dateDebut">Start date</label>
+          <input type="text" id="dateDebut" [(ngModel)]="contractStart" name="contractStart">
+        </div>
+        <div>
+          <label for="dateFin1">End date</label>
+          <input type="text" id="dateFin1" [(ngModel)]="contractEnd" name="contractEnd">
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit">Update</button>
+        <button class="btn-cancel" (click)="cancelUpdateAction()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="card card-confirmation" [hidden]="!deleteConfirmationFormShow">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-trash-alt"></i> Confirmation</h3>
+    </div>
+    <div class="card-body">
+      <p class="confirmation-message">{{ deleteConfirmationMessage }}</p>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmDeleteAction()">Confirm</button>
+        <button class="btn-cancel" (click)="cancelDeleteAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!createFormShow">
+    <form  #contractForm="ngForm">
+      <div class="card-header">
+        <h3 class="card-title">New contract</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div>
+              <label for="ville">Region</label>
+              <select [class.is-invalid]="zone.invalid && (zone.dirty || zone.touched)" id="ville" [(ngModel)]="selectedZone"
+                      (change)="filterEvents()" name="selectedZone" #zone="ngModel" class="form-control" required>
+                <option *ngFor="let ville of zones" [value]="ville.id">{{ ville["nom"] }}</option>
+              </select>
+
+            </div>
+            <div>
+              <label for="sousTraitant">Subcontractor</label>
+              <select id="sousTraitant" [(ngModel)]="selectedSubcontractor" name="selectedSubcontractor" (change)="cnt()" class="form-control" required>
+                <option *ngFor="let subcontractor of subcontractors" [ngValue]="subcontractor">{{ subcontractor.raison_sociale }}</option>
+              </select>
+            </div>
+            <div>
+              <label for="dateDebut1">Start date</label>
+              <input type="date" class="form-control" id="dateDebut1" [(ngModel)]="contractStart" name="contractStart" (change)="addYear()" required>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div>
+              <label for="institution">Institution</label>
+              <select id="institution" [(ngModel)]="selectedInstitution" name="selectedInstitution" class="form-control" required>
+                <option *ngFor="let institution of institutions" [value]="institution.id">{{ institution["nom"] }}</option>
+              </select>
+            </div>
+            <div>
+              <label for="contact">Contact</label>
+              <input type="text" id="contact" [value]="selectedSubcontractor?.nom_contact" name="subContractorName" readonly class="form-control">
+            </div>
+            <div>
+              <label for="dateFin1">End date</label>
+              <input type="date" class="form-control" id="dateFin1" [(ngModel)]="contractEnd" name="contractEnd" readonly required>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="errorMessage !== ''" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateAction(contractForm)" >Create</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+    </form>
+
+
+  </div>
+</div>
+
+

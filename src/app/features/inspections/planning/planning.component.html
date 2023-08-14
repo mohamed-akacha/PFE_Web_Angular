@@ -1,0 +1,101 @@
+<div  class="calendar-container">
+  <div class="overlay" *ngIf="updateInProgress"></div>
+  <div class="app-page-title">
+    <div class="page-title-wrapper">
+      <div class="page-title-heading">
+        <div class="page-title-icon">
+          <i class="fas fa-check-double icon-gradient bg-amy-crisp">
+          </i>
+        </div>
+        <div> Inspection planning
+          <div class="page-title-subheading">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-calendar">
+    <div class="card-header">
+      <h3 class="card-title">Inspection planning {{zoneName}}</h3>
+      <div class="filters">
+        <label for="zoneFilter">Region:</label>
+        <select class="form-control" id="zoneFilter" [(ngModel)]="selectedZone" (change)="filterEvents()">
+          <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nom }}</option>
+        </select>
+
+        <label for="institutionFilter">Institution:</label>
+        <select id="institutionFilter" class="form-control" [(ngModel)]="selectedInstitution">
+          <option *ngFor="let institution of institutions" [value]="institution.id">{{ institution.nom }}</option>
+        </select>
+        <button class="btn-outline-info" style="color: black" [disabled]="selectedInstitution===-1" (click)="load()" >Load</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <full-calendar  class="calendar-container" [options]="calendarOptions"></full-calendar>
+    </div>
+  </div>
+
+  <div class="card card-confirmation" [hidden]="!createFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-user-plus"></i> New inspection</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="dprev">Scheduled date</label>
+            <input type="text" readonly class="form-control" id="dprev" [(ngModel)]="date_prevue" name="date_prevue"/>
+          </div>
+          <div class="col-md-6">
+            <label for="Unite">Inspection unit</label>
+            <select id="Unite" class="form-control"  [(ngModel)]="selectedUnit" name="selectedUnit">
+              <option *ngFor="let iu of insppectionUnits" [value]="iu.id">{{ iu.nom }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="inspec">Inspector</label>
+            <select class="form-control" id="inspec"  [(ngModel)]="user" name="user">
+              <option *ngFor="let user1 of users" [value]="user1.id">{{ user1.username }}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+    <label for="tp">Inspection type</label>
+    <select class="form-control" id="tp"  [(ngModel)]="type_inspec" name="type">
+      <option value="interne">Internal</option>-->
+      <option value="externe">External</option>
+    </select>
+  </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="descriptionCr">Description</label>
+            <input type="text" class="form-control" id="descriptionCr" [(ngModel)]="description" name="description"/>
+          </div>
+        </div>
+
+
+
+<!--        <div>-->
+<!--          <label for="zoneName">Inspecteur</label>-->
+<!--          <select class="form-control">-->
+<!--            <option>Khalil</option>-->
+<!--            <option>Mohamed</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="zoneName">Unité</label>-->
+<!--          <select class="form-control">-->
+<!--            <option>U1</option>-->
+<!--            <option>U2</option>-->
+<!--          </select>-->
+<!--        </div>-->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

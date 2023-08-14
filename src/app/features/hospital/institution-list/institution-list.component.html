@@ -1,0 +1,255 @@
+
+  <div class="overlay" *ngIf="updateInProgress"></div>
+  <div class="app-page-title">
+    <div class="page-title-wrapper">
+      <div class="page-title-heading">
+        <div class="page-title-icon">
+          <i class="fas fa-check-double icon-gradient bg-amy-crisp">
+          </i>
+        </div>
+        <div> Institutions Management
+          <div class="page-title-subheading">
+            This module is an essential component of the hospital hygiene app. It simplifies the management of institutions.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--List institution-->
+  <div class="card card-table" [hidden]="unitFormShow || blocFormShow">
+    <div class="card-header">
+      <h3 class="card-title">Institutions list</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onUserCreateBtnClick()">New institution</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="myDataTableWrapper" data-user-type="user">
+        <table id="ZonesTable" class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th>Nature</th>
+            <th>Adress</th>
+            <th>Region</th>
+            <th>Inspec. unit</th>
+            <th colspan="3" width="50"></th>
+
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--Update institution-->
+  <div class="card  card-confirmation"  [hidden]="!editFormShow">
+    <form (ngSubmit)="confirmUpdateAction()">
+      <div class="card-header">
+        <h3 class="card-title">Institution update</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="fullname">Name</label>
+          <input type="text" id="fullname" [(ngModel)]="instName" name="instName">
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="fullname">Address</label>
+          <textarea class="form-control" id="instAdr" [(ngModel)]="instAdr" name="instAdr"></textarea>
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="fullname">Nature</label>
+
+          <select id="instNature" [(ngModel)]="instNature" name="instNature">
+            <option value="Hospital">Hospital</option>
+            <option value="Pharmaceutical factory">Pharmaceutical factory</option>
+            <option value="Administration">Administration</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit">Update</button>
+        <button class="btn-cancel" (click)="cancelUpdateAction()">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+  <!--Delete institution-->
+  <div class="card card-confirmation" [hidden]="!deleteConfirmationFormShow">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-trash-alt"></i> Confirmation</h3>
+    </div>
+    <div class="card-body">
+      <p class="confirmation-message">{{ deleteConfirmationMessage }}</p>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmDeleteAction()">Confirm</button>
+        <button class="btn-cancel" (click)="cancelDeleteAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <!--Create institution-->
+  <div class="card  card-confirmation"  [hidden]="!createFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title">New institution</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="fullname">Name</label>
+          <input type="text" id="fullname" [(ngModel)]="instName" name="instName">
+        </div>
+        <div>
+          <label for="crZone">Region</label>
+          <select class="form-control" id="crZone" [(ngModel)]="selectedZone" name="selectedZone">
+            <option *ngFor="let zone of allZones" [value]="zone.id">{{ zone.nom }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="fullname">Address</label>
+          <textarea class="form-control" id="instAdr" [(ngModel)]="instAdr" name="instAdr"></textarea>
+        </div>
+        <div>
+          <label for="fullname">Nature</label>
+
+          <select id="instNature" [(ngModel)]="instNature" name="instNature">
+            <option value="Hospital">Hospital</option>
+            <option value="Pharmaceutical factory">Pharmaceutical factory</option>
+            <option value="Administration">Administration</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+  <!--List UI-->
+  <div class="card card-table"  [hidden]="!unitFormShow">
+    <div class="card-header">
+      <h3 class="card-title">List of Inspection Units ({{instName}})</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onUserCreateUIBtnClick()">New unit</button>
+        <button class="mr-3 btn btn-outline-info" (click)="onUIRetour()"> Return</button>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <table id="units" class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Blocs</th>
+            <th width="50"></th>
+            <th width="50"></th>
+          </tr>
+          </thead>
+        <tbody>
+
+        </tbody>
+        </table>
+
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!createUIFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title">New Inspection Unit</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="uiName">Name</label>
+          <input type="text" id="uiName" [(ngModel)]="uiName" name="uiName">
+        </div>
+        <div>
+          <label for="iuiCode">Code</label>
+          <input type="text" id="iuiCode" [(ngModel)]="uiCode" name="uiCode">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateUIAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateUIAction()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+  <!--List BLOCS-->
+  <div class="card card-table1"  [hidden]="!blocFormShow">
+    <div class="card-header">
+      <h3 class="card-title">Blocs list</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onUserCreateBLBtnClick()">New bloc</button>
+        <button class="mr-3 btn btn-outline-info" (click)="onBLRetour()"> Return</button>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <table id="blocs" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Floor </th>
+          <th width="50"></th>
+          <th width="50"></th>
+        </tr>
+        </thead>
+      </table>
+
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!createBLFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title">New Bloc</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="uiName">Name</label>
+          <input type="text" id="blName" [(ngModel)]="blName" name="blName">
+        </div>
+        <div>
+          <label for="iuiCode">Code</label>
+          <input type="text" id="blCode" [(ngModel)]="blCode" name="blCode">
+        </div>
+        <div>
+          <label for="uiName">floor</label>
+          <input type="number" id="blFloor" class="form-control" [(ngModel)]="blFloor" name="blFloor">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateBLAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateBLAction()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+
+
+
+
+
+
+

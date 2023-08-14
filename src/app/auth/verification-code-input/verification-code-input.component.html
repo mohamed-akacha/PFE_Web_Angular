@@ -1,0 +1,10 @@
+<div class="verification-code-input">
+  <input
+    *ngFor="let digit of codeDigits; let i = index"
+    type="text"
+    [(ngModel)]="codeDigits[i]"
+    (keydown)="onKeyDown($event, i)"
+    [ngClass]="{ 'current': currentIndex === i }"
+    maxlength="1"
+  />
+</div>

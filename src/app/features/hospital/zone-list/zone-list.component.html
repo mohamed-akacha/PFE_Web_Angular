@@ -1,0 +1,78 @@
+<div class="card-container">
+  <div class="overlay" *ngIf="updateInProgress"></div>
+
+  <div class="card card-table">
+    <div class="card-header">
+      <h3 class="card-title">List of regions</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onUserCreateBtnClick()">New region</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="myDataTableWrapper" data-user-type="user">
+        <table id="ZonesTable" class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th width="50"></th>
+            <th width="50"></th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!editFormShow">
+    <form (ngSubmit)="confirmUpdateAction()">
+      <div class="card-header">
+        <h3 class="card-title">Region update</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="fullname">Name</label>
+          <input type="text" id="fullname" [(ngModel)]="zoneName" name="zoneName">
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit">Update</button>
+        <button class="btn-cancel" (click)="cancelUpdateAction()">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+  <div class="card card-confirmation" [hidden]="!deleteConfirmationFormShow">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-trash-alt"></i> Confirmation</h3>
+    </div>
+    <div class="card-body">
+      <p class="confirmation-message">{{ deleteConfirmationMessage }}</p>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmDeleteAction()">Confirm</button>
+        <button class="btn-cancel" (click)="cancelDeleteAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!createFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-user-plus"></i> New region</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="zoneName">Name</label>
+          <input type="text" id="zoneName" [(ngModel)]="zoneName" name="zoneName">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+

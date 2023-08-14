@@ -1,0 +1,42 @@
+// Toggles
+//
+// Used in conjunction with global variables to enable certain theme features.
+
+// Vendor
+@import "src/assets/old/scss/bootstrap/scss/vendor/rfs";
+
+// Deprecate
+@import "src/assets/old/scss/bootstrap/scss/mixins/deprecate";
+
+// Helpers
+@import "src/assets/old/scss/bootstrap/scss/mixins/breakpoints";
+@import "src/assets/old/scss/bootstrap/scss/mixins/color-scheme";
+@import "src/assets/old/scss/bootstrap/scss/mixins/image";
+@import "src/assets/old/scss/bootstrap/scss/mixins/resize";
+@import "src/assets/old/scss/bootstrap/scss/mixins/visually-hidden";
+@import "src/assets/old/scss/bootstrap/scss/mixins/reset-text";
+@import "src/assets/old/scss/bootstrap/scss/mixins/text-truncate";
+
+// Utilities
+@import "src/assets/old/scss/bootstrap/scss/mixins/utilities";
+
+// Components
+@import "src/assets/old/scss/bootstrap/scss/mixins/alert";
+@import "src/assets/old/scss/bootstrap/scss/mixins/buttons";
+@import "src/assets/old/scss/bootstrap/scss/mixins/caret";
+@import "src/assets/old/scss/bootstrap/scss/mixins/pagination";
+@import "src/assets/old/scss/bootstrap/scss/mixins/lists";
+@import "src/assets/old/scss/bootstrap/scss/mixins/list-group";
+@import "src/assets/old/scss/bootstrap/scss/mixins/forms";
+@import "src/assets/old/scss/bootstrap/scss/mixins/table-variants";
+
+// Skins
+@import "src/assets/old/scss/bootstrap/scss/mixins/border-radius";
+@import "src/assets/old/scss/bootstrap/scss/mixins/box-shadow";
+@import "src/assets/old/scss/bootstrap/scss/mixins/gradients";
+@import "src/assets/old/scss/bootstrap/scss/mixins/transition";
+
+// Layout
+@import "src/assets/old/scss/bootstrap/scss/mixins/clearfix";
+@import "src/assets/old/scss/bootstrap/scss/mixins/container";
+@import "src/assets/old/scss/bootstrap/scss/mixins/grid";

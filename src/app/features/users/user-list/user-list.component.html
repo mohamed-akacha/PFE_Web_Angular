@@ -1,0 +1,125 @@
+<div class="card-container">
+  <div class="overlay" *ngIf="updateInProgress"></div>
+  <div class="app-page-title">
+    <div class="page-title-wrapper">
+      <div class="page-title-heading">
+        <div class="page-title-icon">
+          <i class="fas fa-check-double icon-gradient bg-amy-crisp">
+          </i>
+        </div>
+        <div> Users Management
+          <div class="page-title-subheading">
+            Perform CRUD operations (Create, Read, Update, Delete) for effective user management. Simplify the process of adding, viewing, modifying, and removing user accounts, ensuring streamlined access and administration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-table">
+    <div class="card-header">
+      <h3 class="card-title">Users list</h3>
+      <div class="header-button">
+        <button class="btn btn-outline-dark" (click)="onUserCreateBtnClick()">New user</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="myDataTableWrapper" data-user-type="user">
+        <table id="UsersTable" class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th>Full name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Status</th>
+
+            <th colspan="3"></th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!editFormShow">
+    <form (ngSubmit)="confirmUpdateAction()">
+      <div class="card-header">
+        <h3 class="card-title">User update</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="fullname">Full name</label>
+          <input type="text" id="fullname" [(ngModel)]="fullname" name="fullname">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email">
+        </div>
+        <div>
+          <label for="role">Role</label>
+          <select id="role" [(ngModel)]="role" name="role">
+            <option value="admin">Admin</option>
+            <option value="user">Inspector</option>
+          </select>
+        </div>
+        <div>
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" [(ngModel)]="phone" name="phone">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit">Update</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+  <div class="card card-confirmation" [hidden]="!confirmationFormShow">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-toggle-off"></i> Confirmation</h3>
+    </div>
+    <div class="card-body">
+      <p class="confirmation-message">{{ confirmationMessage }}</p>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmActivateAction()">Confirm</button>
+        <button class="btn-cancel" (click)="cancelActivateAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="card card-confirmation" [hidden]="!deleteConfirmationFormShow">
+    <div class="card-header">
+      <h3 class="card-title"><i class="fas fa-trash-alt"></i> Confirmation</h3>
+    </div>
+    <div class="card-body">
+      <p class="confirmation-message">{{ deleteConfirmationMessage }}</p>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmDeleteAction()">Confirm</button>
+        <button class="btn-cancel" (click)="cancelDeleteAction()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="card  card-confirmation"  [hidden]="!createFormShow">
+    <form>
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-user-plus"></i> New user</h3>
+      </div>
+      <div class="card-body">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email">
+        </div>
+        <div>
+          <label for="role">Role</label>
+          <select id="role" [(ngModel)]="role" name="role">
+            <option value="admin">Admin</option>
+            <option value="user">Inspector</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-confirm" (click)="confirmCreateAction()">Create</button>
+        <button class="btn-cancel" (click)="cancelCreateAction()">Cancel</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
